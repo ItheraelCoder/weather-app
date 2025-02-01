@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-const SearchPage = () => {
+export const SearchPage = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -16,5 +16,3 @@ const SearchPage = () => {
     </div>
   );
 };
-
-export default SearchPage;
