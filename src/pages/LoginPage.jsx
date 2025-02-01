@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link  } from 'react-router-dom';
 
 export const LoginPage = () => {
   const [username, setUsername] = useState('');
@@ -18,22 +18,33 @@ export const LoginPage = () => {
   };
 
   return (
-    <div>
+    <div className="login-page">
       <h1>Iniciar sesión</h1>
-      <input
-        type="text"
-        placeholder="Usuario"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Contraseña"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button onClick={handleLogin}>Iniciar sesión</button>
+      <form onSubmit={handleLogin}>
+        <div>
+          <label>Usuario:</label>
+          <input
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label>Contraseña:</label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
+        <button type="submit">Iniciar sesión</button>
+      </form>
+      <p>
+        ¿No tienes una cuenta?{' '}
+        <Link to="/signup">Crea una cuenta aquí</Link> {/* Botón para crear cuenta */}
+      </p>
     </div>
   );
 };
-
