@@ -1,17 +1,12 @@
 
-import { BrowserRouter } from "react-router"
-import { AppRouter } from "./router"
-//import { Provider } from "react-redux"
-//import { store } from "./store"
 
-export const WeatherApp = () => {
+import { BrowserRouter } from 'react-router-dom'; // <-- Aquí podría estar el Router
+import { AppRouter } from './router';
+
+export const WeatherApp = () =>{
   return (
-    //<Provider store={store}>
-      <BrowserRouter>
-
-        <AppRouter/>
-
-      </BrowserRouter>
-    //</Provider>
-  )
+    <BrowserRouter> {/* <-- Esto es un Router */}
+      <AppRouter />
+    </BrowserRouter>
+  );
 }
