@@ -1,6 +1,20 @@
+import { useNavigate } from 'react-router-dom';
 
-export const SearchPage = () => {
+const SearchPage = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem('isAuthenticated'); // Elimina el estado de autenticación
+    navigate('/login'); // Redirige al login
+  };
+
   return (
-    <div>SearchPage</div>
-  )
-}
+    <div>
+      <h1>Buscador del clima</h1>
+      <p>¡Bienvenido! Aquí puedes buscar el clima de cualquier ciudad.</p>
+      <button onClick={handleLogout}>Cerrar sesión</button>
+    </div>
+  );
+};
+
+export default SearchPage;

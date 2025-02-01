@@ -1,21 +1,32 @@
-import { Navigate, Route, Routes } from "react-router";
-import { LoginPage } from "../auth";
-import { LoginPage } from "../pages";
+
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { LoginPage, SearchPage, WelcomePage, PrivateRoute } from '../pages';
 
 export const AppRouter = () => {
-
-  const authStatus = '';
-
-  return (
-
-    <Routes>
-      {
-        (authStatus === 'not-authenticated')
-        ? <Route path="/auth/*" element={<LoginPage />}/>
-        : <Route path="/*" element={<CalendarPage />} />
-      }
-      <Route path="/*" element={<Navigate to={"auth/login"}/>} />
-      
-      
-      
-    </Routes>
+    return (
+      <Router>
+        <Routes>
+          {/* Ruta de bienvenida */}
+          <Route path="/" element={<WelcomePage />} />
+  
+          {/* Ruta de inicio de sesión */}
+          <Route path="/login" element={<LoginPage />} />
+  
+          {/* Ruta privada (solo accesible después de iniciar sesión) */}
+          <Route
+            path="/search"
+            element={
+              <PrivateRoute>
+                <SearchPage />
+              </PrivateRoute>
+            }
+          />
+  
+          {/* Ruta por defecto para páginas no encontradas */}
+          <Route path="*" element={<h1>404 - Página no encontrada</h1>} />
+        </Routes>
+      </Router>
+    );
+  };
+  
+  export default AppRouter;
