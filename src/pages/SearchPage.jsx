@@ -1,34 +1,26 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setSearchTerm, setResults, setLoading, setError } from '../store/search/searchSlice';
-import '../styles/SearchPage.css'
+import { setSearchTerm, setWeatherData, setLoading, setError } from '../store/search/searchSlice';
+import { fetchWeatherData } from '../services/weatherService';
 
 export const SearchPage = () => {
   const dispatch = useDispatch();
-  const { searchTerm, results, isLoading, error } = useSelector((state) => state.search);
+  const { searchTerm, weatherData, isLoading, error } = useSelector((state) => state.search);
   const [inputValue, setInputValue] = useState('');
 
   const handleSearch = async (e) => {
     e.preventDefault();
-    if (!inputValue.trim()) return;
+    if (!inputValue.trim()) return; // Evita búsquedas vacías
 
     dispatch(setLoading(true));
     dispatch(setError(null));
 
     try {
-      const response = await fetch(
-        `https://api.weatherapi.com/v1/current.json?key=TU_API_KEY&q=${inputValue}`
-      );
-      const data = await response.json();
-
-      if (data.error) {
-        dispatch(setError(data.error.message));
-      } else {
-        dispatch(setResults([data])); // Guarda los resultados en el store
-        dispatch(setSearchTerm(inputValue));
-      }
+      const data = await fetchWeatherData(inputValue); // Llama a la API
+      dispatch(setWeatherData(data)); // Guarda los datos del clima en el store
+      dispatch(setSearchTerm(inputValue)); // Guarda el término de búsqueda
     } catch (err) {
-      dispatch(setError('Error al realizar la búsqueda'));
+      dispatch(setError(err.message)); // Maneja errores
     } finally {
       dispatch(setLoading(false));
     }
@@ -51,16 +43,20 @@ export const SearchPage = () => {
 
       {error && <p className="error">{error}</p>}
 
-      {results.length > 0 && (
+      {weatherData && (
         <div className="results">
           <h2>Resultados para {searchTerm}</h2>
-          <ul>
-            {results.map((result) => (
-              <li key={result.id}>{result.name}</li>
-            ))}
-          </ul>
+          <div className="weather-info">
+            <p><strong>Ubicación:</strong> {weatherData.location.name}, {weatherData.location.country}</p>
+            <p><strong>Temperatura:</strong> {weatherData.current.temp_c}°C</p>
+            <p><strong>Condición:</strong> {weatherData.current.condition.text}</p>
+            <p><strong>Humedad:</strong> {weatherData.current.humidity}%</p>
+            <p><strong>Viento:</strong> {weatherData.current.wind_kph} km/h</p>
+          </div>
         </div>
       )}
     </div>
   );
 };
+
+
