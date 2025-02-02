@@ -1,12 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    searchTerm: '', // Término de búsqueda (nombre de la ciudad)
-    weatherData: null, // Datos del clima
-    isLoading: false, // Estado de carga
-    error: null, // Errores
-};
-
+    searchTerm: '',
+    weatherData: null,
+    isLoading: false,
+    error: null,
+    isCelsius: true, // Nueva propiedad para manejar la unidad
+  };
+  
 export const searchSlice = createSlice({
     name: 'search',
     initialState,
@@ -23,8 +24,12 @@ export const searchSlice = createSlice({
       setError: (state, action) => {
         state.error = action.payload;
       },
+      toggleTemperatureUnit: (state) => {
+        state.isCelsius = !state.isCelsius; // Cambia entre Celsius y Fahrenheit
+      },
     },
-});
+  });
   
-export const { setSearchTerm, setWeatherData, setLoading, setError } = searchSlice.actions;
+export const { setSearchTerm, setWeatherData, setLoading, setError, toggleTemperatureUnit } = searchSlice.actions;
+  
 searchSlice.reducer;
