@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setSearchTerm, setWeatherData, setLoading, setError, toggleTemperatureUnit } from '../store/search/searchSlice';
 import { fetchWeatherData } from '../services/weatherService';
 import { FaSun, FaCloud, FaCloudRain, FaSnowflake } from 'react-icons/fa';
-import { Forecast } from '../components/Forecast';
+import { Forecast, FeaturedCities } from '../components';
 
 const getWeatherIcon = (condition) => {
   switch (condition.toLowerCase()) {
@@ -81,7 +81,8 @@ export const SearchPage = () => {
           <button onClick={() => dispatch(toggleTemperatureUnit())}>
             Cambiar a {isCelsius ? 'Fahrenheit' : 'Celsius'}
           </button>
-          <Forecast forecast={weatherData.forecast}/>
+          <Forecast forecast={weatherData.forecast} /* Componente de Pronostico *//>
+          <FeaturedCities /* Componente de Datos Climaticos de Ciudades importantes */ />
         </div>
       )}
     </div>
