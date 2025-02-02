@@ -1,92 +1,46 @@
-.search-page {
-    max-width: 800px;
+.search-container {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
     margin: 0 auto;
-    padding: 20px;
-    text-align: center;
-    font-family: Arial, sans-serif;
-    background-color: #f0f4f8;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
   
-  .search-page h1 {
-    margin-bottom: 20px;
-    font-size: 2rem;
-    color: #333;
-  }
-  
-  .search-page form {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-  }
-  
-  .search-page input {
-    width: 70%;
+  .search-container input {
+    width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    margin-right: 10px;
     font-size: 1rem;
   }
   
-  .search-page button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
-  }
-  
-  .search-page button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-  }
-  
-  .search-page .error {
-    color: red;
-    margin-bottom: 20px;
-  }
-  
-  .search-page .results {
-    margin-top: 20px;
+  .suggestions-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
     background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    max-height: 200px;
+    overflow-y: auto;
   }
   
-  .search-page .results h2 {
-    margin-bottom: 20px;
-    font-size: 1.5rem;
+  .suggestion-item {
+    padding: 10px;
+    cursor: pointer;
+    font-size: 0.9rem;
     color: #333;
   }
   
-  .search-page .weather-info {
-    text-align: left;
-  }
-  
-  .search-page .weather-info p {
-    margin: 10px 0;
-    font-size: 1.1rem;
-    color: #555;
-  }
-  
-  .search-page .weather-info strong {
-    color: #333;
-  }
-  
-  .weather-icon {
-    width: 100px;
-    height: 100px;
-    margin-bottom: 20px;
+  .suggestion-item:hover {
+    background-color: #f0f4f8;
   }
 
 
 
-  forecast {
+  .forecast {
     margin-top: 20px;
   }
   
