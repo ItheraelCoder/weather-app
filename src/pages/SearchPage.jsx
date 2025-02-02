@@ -37,14 +37,17 @@ export const SearchPage = () => {
       dispatch(setSearchTerm(inputValue));
     } catch (err) {
       dispatch(setError(err.message));
+      dispatch(setWeatherData(null));
     } finally {
       dispatch(setLoading(false));
     }
   };
 
-  const temperature = isCelsius
-    ? `${weatherData.current.temp_c}°C`
-    : `${weatherData.current.temp_f}°F`
+  const temperature = weatherData
+    ? isCelsius
+      ? `${weatherData.current.temp_c}°C`
+      : `${weatherData.current.temp_f}°F`
+      : 'N/A';
 
   return (
     <div className="search-page">
