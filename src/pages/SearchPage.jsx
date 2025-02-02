@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setSearchTerm, setResults, setLoading, setError } from '../store/search/searchSlice';
+import '../styles/SearchPage.css'
 
 export const SearchPage = () => {
   const dispatch = useDispatch();
@@ -9,20 +10,23 @@ export const SearchPage = () => {
 
   const handleSearch = async (e) => {
     e.preventDefault();
-    if (!inputValue.trim()) return; // Evita búsquedas vacías
+    if (!inputValue.trim()) return;
 
     dispatch(setLoading(true));
     dispatch(setError(null));
 
     try {
-      // Simulamos una búsqueda con una API (puedes reemplazar esto con una llamada real)
-      const fakeResults = [
-        { id: 1, name: 'Resultado 1' },
-        { id: 2, name: 'Resultado 2' },
-      ];
+      const response = await fetch(
+        `https://api.weatherapi.com/v1/current.json?key=TU_API_KEY&q=${inputValue}`
+      );
+      const data = await response.json();
 
-      dispatch(setResults(fakeResults)); // Guarda los resultados en el store
-      dispatch(setSearchTerm(inputValue)); // Guarda el término de búsqueda
+      if (data.error) {
+        dispatch(setError(data.error.message));
+      } else {
+        dispatch(setResults([data])); // Guarda los resultados en el store
+        dispatch(setSearchTerm(inputValue));
+      }
     } catch (err) {
       dispatch(setError('Error al realizar la búsqueda'));
     } finally {
@@ -49,7 +53,7 @@ export const SearchPage = () => {
 
       {results.length > 0 && (
         <div className="results">
-          <h2>Resultados para `${searchTerm}`</h2>
+          <h2>Resultados para {searchTerm}</h2>
           <ul>
             {results.map((result) => (
               <li key={result.id}>{result.name}</li>
