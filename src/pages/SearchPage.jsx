@@ -5,6 +5,7 @@ import { fetchWeatherData, fetchAutocompleteSuggestions } from '../services/';
 import { FaSun, FaCloud, FaCloudRain, FaSnowflake } from 'react-icons/fa';
 import { FeaturedCities, Forecast } from '../components/'
 import { useNavigate } from 'react-router-dom'; // Para redirigir a WelcomePage
+import { logout } from '../store/';
 
 const getWeatherIcon = (condition) => {
   switch (condition.toLowerCase()) {
@@ -79,6 +80,11 @@ export const SearchPage = () => {
     setShowSuggestions(false);
   };
 
+  const handleLogout = () => {
+    dispatch(logout()); // Cierra la sesión
+    navigate('/'); // Redirige a la página de inicio
+  };
+
   const temperature = weatherData
     ? isCelsius
       ? `${weatherData.current.temp_c}°C`
@@ -140,7 +146,12 @@ export const SearchPage = () => {
       <button onClick={() => navigate('/')} className="home-button">
         Volver a la página principal
       </button>
-      
+      {/* Botón para cerrar sesión */}
+      {isAuthenticated && (
+        <button onClick={handleLogout} className="logout-button">
+          Cerrar sesión
+        </button>
+      )}
       <FeaturedCities />
     </div>
   );
