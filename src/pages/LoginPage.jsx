@@ -15,7 +15,7 @@ export const LoginPage = () => {
     e.preventDefault();
     if (username === 'usuario' && password === 'contraseña') {
       dispatch(login({ username }));
-      // No redirigir automáticamente
+      navigate('/')
     } else {
       alert('Usuario o contraseña incorrectos');
     }
