@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setSearchTerm, setWeatherData, setLoading, setError, toggleTemperatureUnit } from '../store/search/searchSlice';
-import { fetchWeatherData, fetchAutocompleteSuggestions } from '../services';
+import { setSearchTerm, setWeatherData, setLoading, setError, toggleTemperatureUnit, addSearch } from '../store/';
+import { fetchWeatherData, fetchAutocompleteSuggestions } from '../services/';  
 import { FaSun, FaCloud, FaCloudRain, FaSnowflake } from 'react-icons/fa';
-import { FeaturedCities } from '../components/FeaturedCities';
+import { FeaturedCities, Forecast } from '../components/'
+import { useNavigate } from 'react-router-dom'; // Para redirigir a WelcomePage
 
 const getWeatherIcon = (condition) => {
   switch (condition.toLowerCase()) {
@@ -22,12 +23,13 @@ const getWeatherIcon = (condition) => {
 
 export const SearchPage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { searchTerm, weatherData, isLoading, error, isCelsius } = useSelector((state) => state.search);
+  const { isAuthenticated } = useSelector((state) => state.auth);
   const [inputValue, setInputValue] = useState('');
-  const [suggestions, setSuggestions] = useState([]); // Estado para las sugerencias
-  const [showSuggestions, setShowSuggestions] = useState(false); // Estado para mostrar/ocultar el menú desplegable
+  const [suggestions, setSuggestions] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
 
-  // Función para manejar la búsqueda
   const handleSearch = async (e) => {
     e.preventDefault();
     if (!inputValue.trim()) return;
@@ -39,7 +41,12 @@ export const SearchPage = () => {
       const data = await fetchWeatherData(inputValue);
       dispatch(setWeatherData(data));
       dispatch(setSearchTerm(inputValue));
-      setShowSuggestions(false); // Ocultar el menú desplegable después de la búsqueda
+      setShowSuggestions(false);
+
+      // Guardar la búsqueda si el usuario está autenticado
+      if (isAuthenticated) {
+        dispatch(addSearch({ term: inputValue, timestamp: new Date().toISOString() }));
+      }
     } catch (err) {
       dispatch(setError(err.message));
       dispatch(setWeatherData(null));
@@ -48,7 +55,6 @@ export const SearchPage = () => {
     }
   };
 
-  // Función para obtener sugerencias de autocompletado
   const handleInputChange = async (e) => {
     const value = e.target.value;
     setInputValue(value);
@@ -68,7 +74,6 @@ export const SearchPage = () => {
     }
   };
 
-  // Función para seleccionar una sugerencia
   const handleSuggestionClick = (suggestion) => {
     setInputValue(`${suggestion.name}, ${suggestion.country}`);
     setShowSuggestions(false);
@@ -78,7 +83,7 @@ export const SearchPage = () => {
     ? isCelsius
       ? `${weatherData.current.temp_c}°C`
       : `${weatherData.current.temp_f}°F`
-    : 'N/A';
+      : 'N/A';
 
   return (
     <div className="search-page">
@@ -126,9 +131,16 @@ export const SearchPage = () => {
           <button onClick={() => dispatch(toggleTemperatureUnit())}>
             Cambiar a {isCelsius ? 'Fahrenheit' : 'Celsius'}
           </button>
+          <Forecast forecast={weatherData.forecast} />
         </div>
+        
       )}
 
+      {/* Botón para redirigir a WelcomePage */}
+      <button onClick={() => navigate('/')} className="home-button">
+        Volver a la página principal
+      </button>
+      
       <FeaturedCities />
     </div>
   );

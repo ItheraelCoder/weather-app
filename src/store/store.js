@@ -1,8 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { searchSlice } from './search/searchSlice'; // Importa el slice de búsqueda
+import { searchSlice, authSlice, searchHistorySlice } from './';
 
 export const store = configureStore({
   reducer: {
-    search: searchSlice.reducer, // Agrega el slice al store
+    auth: authSlice.reducer,
+    search: searchSlice.reducer,
+    searchHistory: searchHistorySlice.reducer
   },
 });
