@@ -1,23 +1,22 @@
-
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { login } from '../store/auth/authSlice';
 import { useNavigate } from 'react-router';
+import { login } from '../services/authService';
 import '../styles/LoginPage.css'
 
 export const LoginPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const dispatch = useDispatch();
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    if (username === 'usuario' && password === 'contraseña') {
-      dispatch(login({ username }));
-      navigate('/')
-    } else {
-      alert('Usuario o contraseña incorrectos');
+    try {
+      const { token } = await login(username, password); // Llama al servicio de inicio de sesión
+      localStorage.setItem('token', token); // Guarda el token en localStorage
+      navigate('/search'); // Redirige al usuario a la página de búsqueda
+    } catch (err) {
+      setError(err.message); // Muestra un mensaje de error si falla el inicio de sesión
     }
   };
 
@@ -25,22 +24,29 @@ export const LoginPage = () => {
     <div className="login-page">
       <h1>Iniciar sesión</h1>
       <form onSubmit={handleLogin}>
-        <input
-          type="text"
-          placeholder="Usuario"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Contraseña"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+        <div>
+          <label>Nombre de usuario:</label>
+          <input
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label>Contraseña:</label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
         <button type="submit">Iniciar sesión</button>
       </form>
+      {error && <p className="error">{error}</p>}
       <p>
-        ¿No tienes una cuenta? <a href="/signup">Crea una cuenta aquí</a>.
+        ¿No tienes una cuenta? <a href="/signup">Regístrate aquí</a>.
       </p>
     </div>
   );

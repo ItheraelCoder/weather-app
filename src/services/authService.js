@@ -5,7 +5,7 @@ const API_URL = 'http://localhost:5000/api/auth'; // URL del backend
 export const register = async (username, password) => {
   try {
     const response = await axios.post(`${API_URL}/register`, { username, password });
-    return response.data; // Devuelve la respuesta del backend
+    return response.data;
   } catch (error) {
     throw new Error(error.response?.data?.error || 'Error al registrar el usuario');
   }
