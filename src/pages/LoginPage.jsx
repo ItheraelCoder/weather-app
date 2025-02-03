@@ -1,22 +1,24 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router';
-import { login } from '../services/authService';
 import '../styles/LoginPage.css'
+import { useDispatch } from 'react-redux';
+import { loginUser } from '../store';
+import { useNavigate } from 'react-router';
 
 export const LoginPage = () => {
+  
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const { token } = await login(username, password); // Llama al servicio de inicio de sesión
-      localStorage.setItem('token', token); // Guarda el token en localStorage
-      navigate('/search'); // Redirige al usuario a la página de búsqueda
-    } catch (err) {
-      setError(err.message); // Muestra un mensaje de error si falla el inicio de sesión
+      await dispatch(loginUser({ username, password })); // Despacha la acción asíncrona
+      navigate('/search'); // Redirige al usuario después del inicio de sesión
+    } catch (error) {
+      setError(error.message); // Muestra un mensaje de error si falla el inicio de sesión
     }
   };
 
