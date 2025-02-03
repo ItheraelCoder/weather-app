@@ -1,7 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { setSearchTerm, setWeatherData, setLoading, setError, toggleTemperatureUnit, addSearch} from '../store';
-
 import { logout } from '../store/auth/authSlice';
 import { SearchBar, SearchResults, FeaturedCities } from '../components/';
 

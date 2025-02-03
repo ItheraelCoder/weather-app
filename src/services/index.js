@@ -1,2 +1,2 @@
-export * from './autoCompleteService'
+export * from './autoCompleteService.js'
 export * from './weatherService.js'

@@ -1,5 +1,5 @@
 
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router';
 import { LoginPage, SearchPage, WelcomePage, PrivateRoute, SignUpPage } from '../pages';
 
 export const AppRouter = () => {

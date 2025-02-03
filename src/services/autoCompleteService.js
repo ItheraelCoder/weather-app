@@ -1,4 +1,4 @@
-// src/services/autocompleteService.js
+
 const API_KEY = import.meta.env.VITE_WEATHERAPI_KEY;
 
 export const fetchAutocompleteSuggestions = async (query) => {
