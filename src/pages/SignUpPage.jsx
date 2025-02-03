@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router';
+import { register } from '../services/authService';
 import '../styles/SignUpPage.css'
+import { setError } from '../store';
 
 export const SignUpPage = () => {
   const [username, setUsername] = useState('');
@@ -8,14 +10,15 @@ export const SignUpPage = () => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleSignUp = (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
-    // Aquí puedes agregar la lógica para registrar al usuario
-    console.log('Registrando usuario:', { username, email, password });
-
-    // Simulamos un registro exitoso
-    alert('¡Registro exitoso! Por favor, inicia sesión.');
-    navigate('/login'); // Redirigimos al usuario a la página de inicio de sesión
+    try {
+      await register(username, password); // Llama al servicio de registro
+      alert('¡Registro exitoso! Por favor, inicia sesión.');
+      navigate('/login'); // Redirige al usuario a la página de inicio de sesión
+    } catch (err) {
+      setError(err.message); // Muestra un mensaje de error si falla el registro
+    }
   };
 
   return (
