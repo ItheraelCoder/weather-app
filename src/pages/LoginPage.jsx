@@ -16,7 +16,7 @@ export const LoginPage = () => {
     e.preventDefault();
     try {
       await dispatch(loginUser({ username, password })); // Despacha la acción asíncrona
-      navigate('/search'); // Redirige al usuario después del inicio de sesión
+      navigate('/'); // Redirige al usuario después del inicio de sesión
     } catch (error) {
       setError(error.message); // Muestra un mensaje de error si falla el inicio de sesión
     }
