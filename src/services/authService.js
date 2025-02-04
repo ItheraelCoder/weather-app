@@ -14,8 +14,10 @@ export const register = async (username, password) => {
 export const login = async (username, password) => {
   try {
     const response = await axios.post(`${API_URL}/login`, { username, password });
-    return response.data; // Devuelve el token JWT
+    console.log('Login response:', response.data); // Añadir para depuración
+    return response.data; // Devuelve el token JWT junto con el usuario
   } catch (error) {
+    console.log('error inicio de sesion')
     throw new Error(error.response?.data?.error || 'Error al iniciar sesión');
   }
 };

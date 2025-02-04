@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import '../styles/LoginPage.css'
+import '../styles/LoginPage.css';
 import { useDispatch } from 'react-redux';
 import { loginUser } from '../store';
 import { useNavigate } from 'react-router';
@@ -15,10 +15,12 @@ export const LoginPage = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      await dispatch(loginUser({ username, password })); // Despacha la acción asíncrona
+      const result = await dispatch(loginUser({ username, password })).unwrap(); // Despacha la acción asíncrona y obtiene el resultado
+      console.log('Login successful:', result); // Añadir para depuración
       navigate('/'); // Redirige al usuario después del inicio de sesión
     } catch (error) {
-      setError(error.message); // Muestra un mensaje de error si falla el inicio de sesión
+      console.error('Login failed:', error); // Añadir para depuración
+      setError(error); // Muestra un mensaje de error si falla el inicio de sesión
     }
   };
 
