@@ -1,4 +1,5 @@
 import '../styles/Forecast.css';
+import PropTypes from 'prop-types';
 
 export const Forecast = ({ forecast }) => {
   if (!forecast || !forecast.forecastday) {
@@ -20,6 +21,23 @@ export const Forecast = ({ forecast }) => {
       </div>
     </div>
   );
+};
+
+Forecast.propTypes = {
+  forecast: PropTypes.shape({
+    forecastday: PropTypes.arrayOf(
+      PropTypes.shape({
+        date: PropTypes.string.isRequired,
+        day: PropTypes.shape({
+          maxtemp_c: PropTypes.number.isRequired,
+          mintemp_c: PropTypes.number.isRequired,
+          condition: PropTypes.shape({
+            text: PropTypes.string.isRequired,
+          }).isRequired,
+        }).isRequired,
+      }).isRequired
+    ).isRequired,
+  }).isRequired,
 };
 
 

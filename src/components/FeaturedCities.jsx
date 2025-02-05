@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { fetchWeatherData } from '../services/weatherService';
 
 export const FeaturedCities = () => {
-  const [cities, setCities] = useState([
+  const [cities] = useState([
     { name: 'New York', country: 'USA' },
     { name: 'Tokyo', country: 'Japan' },
     { name: 'London', country: 'UK' },

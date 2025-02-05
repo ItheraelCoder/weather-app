@@ -1,10 +1,11 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
-import { setSearchTerm, setWeatherData, setLoading, setError, toggleTemperatureUnit, addSearch} from '../store';
+import { setSearchTerm, setWeatherData, setLoading, setError, toggleTemperatureUnit, addSearch } from '../store';
 import { logout } from '../store/auth/authSlice';
 import { SearchBar, SearchResults, FeaturedCities } from '../components/';
 import { useEffect } from 'react';
 import { ProfileButton } from '../helpers';
+import { fetchWeatherData } from '../services/weatherService'; // Asegúrate de que esta ruta es correcta
 
 export const SearchPage = () => {
   const dispatch = useDispatch();
@@ -19,13 +20,23 @@ export const SearchPage = () => {
     }
   }, [navigate, isAuthenticated]); // Añade isAuthenticated como dependencia
 
-  const handleSearch = (data) => {
-    dispatch(setWeatherData(data));
-    dispatch(setSearchTerm(data.location.name));
+  const handleSearch = async (query) => {
+    dispatch(setLoading(true));
+    dispatch(setError(null));
 
-    // Guardar la búsqueda si el usuario está autenticado
-    if (isAuthenticated) {
-      dispatch(addSearch({ term: data.location.name, timestamp: new Date().toISOString() }));
+    try {
+      const data = await fetchWeatherData(query);
+      dispatch(setWeatherData(data));
+      dispatch(setSearchTerm(data.location.name));
+
+      // Guardar la búsqueda si el usuario está autenticado
+      if (isAuthenticated) {
+        dispatch(addSearch({ term: data.location.name, timestamp: new Date().toISOString() }));
+      }
+    } catch (err) {
+      dispatch(setError(err.message));
+    } finally {
+      dispatch(setLoading(false));
     }
   };
 
@@ -40,11 +51,15 @@ export const SearchPage = () => {
       <ProfileButton /> {/* Añadir el botón de perfil */}
       <SearchBar onSearch={handleSearch} />
       {error && <p className="error">{error}</p>}
-      <SearchResults
-        weatherData={weatherData}
-        isCelsius={isCelsius}
-        onToggleUnit={() => dispatch(toggleTemperatureUnit())}
-      />
+      {isLoading ? (
+        <p>Cargando...</p>
+      ) : (
+        <SearchResults
+          weatherData={weatherData}
+          isCelsius={isCelsius}
+          onToggleUnit={() => dispatch(toggleTemperatureUnit())}
+        />
+      )}
       <button onClick={() => navigate('/')} className="home-button">
         Volver a la página principal
       </button>
@@ -57,10 +72,3 @@ export const SearchPage = () => {
     </div>
   );
 };
-
-
-
-
-
-
-

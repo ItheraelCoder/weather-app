@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { setSearchTerm, setLoading, setError } from '../store';
+import PropTypes from 'prop-types';
 import { fetchWeatherData } from '../services/weatherService';
 import { fetchAutocompleteSuggestions } from '../services';
 
@@ -14,6 +15,7 @@ export const SearchBar = ({ onSearch }) => {
     e.preventDefault();
     if (!inputValue.trim()) return;
 
+    dispatch(setSearchTerm(inputValue)); // Actualizar el término de búsqueda en el estado global
     dispatch(setLoading(true));
     dispatch(setError(null));
 
@@ -37,7 +39,7 @@ export const SearchBar = ({ onSearch }) => {
         const data = await fetchAutocompleteSuggestions(value);
         setSuggestions(data);
         setShowSuggestions(true);
-      } catch (err) {
+      } catch {
         setSuggestions([]);
         setShowSuggestions(false);
       }
@@ -78,4 +80,8 @@ export const SearchBar = ({ onSearch }) => {
       </div>
     </form>
   );
+};
+
+SearchBar.propTypes = {
+  onSearch: PropTypes.func.isRequired,
 };

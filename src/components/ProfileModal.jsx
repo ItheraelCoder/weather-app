@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import Modal from 'react-modal';
+import PropTypes from 'prop-types';
 import { getProfile, deleteAccount } from '../services/authService';
 import { useDispatch } from 'react-redux'; // Importar useDispatch
 import { logout } from '../store'; // Importar la acción de logout
@@ -22,7 +23,7 @@ export const ProfileModal = ({ isOpen, closeModal }) => {
     try {
       const data = await getProfile();
       setProfile(data);
-    } catch (error) {
+    } catch {
       setError('Error al cargar el perfil');
     }
   };
@@ -33,7 +34,7 @@ export const ProfileModal = ({ isOpen, closeModal }) => {
       alert('Cuenta eliminada correctamente');
       dispatch(logout()); // Despachar la acción de logout para actualizar el estado de autenticación
       window.location.href = '/';
-    } catch (error) {
+    } catch {
       setError('Error al eliminar la cuenta');
     }
   };
@@ -56,4 +57,9 @@ export const ProfileModal = ({ isOpen, closeModal }) => {
       <button onClick={closeModal}>Cerrar</button>
     </Modal>
   );
+};
+
+ProfileModal.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  closeModal: PropTypes.func.isRequired,
 };
