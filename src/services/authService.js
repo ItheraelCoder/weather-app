@@ -2,9 +2,9 @@ import axios from 'axios';
 
 const API_URL = 'http://localhost:5000/api/auth'; // URL del backend
 
-export const register = async (username, email, password) => { // Añadir email
+export const register = async (username, email, password) => {
   try {
-    const response = await axios.post(`${API_URL}/register`, { username, email, password }); // Incluir email en la solicitud
+    const response = await axios.post(`${API_URL}/register`, { username, email, password });
     return response.data;
   } catch (error) {
     throw new Error(error.response?.data?.error || 'Error al registrar el usuario');
@@ -14,7 +14,7 @@ export const register = async (username, email, password) => { // Añadir email
 export const login = async (username, password) => {
   try {
     const response = await axios.post(`${API_URL}/login`, { username, password });
-    console.log('Login response:', response.data); // Añadir para depuración
+    console.log('Login response:', response.data);
     return response.data; // Devuelve el token JWT junto con el usuario
   } catch (error) {
     console.log('error inicio de sesion');
@@ -38,6 +38,7 @@ export const deleteAccount = async () => {
     const response = await axios.delete(`${API_URL}/delete`, {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
     });
+    localStorage.removeItem('token'); // Eliminar el token del almacenamiento local
     return response.data;
   } catch (error) {
     throw new Error(error.response?.data?.error || 'Error al eliminar la cuenta');

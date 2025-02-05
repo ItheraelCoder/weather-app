@@ -110,4 +110,4 @@ export const authSlice = createSlice({
 export const { logout } = authSlice.actions;
 
 // Exporta el reducer
-export default authSlice.reducer;
+authSlice.reducer;

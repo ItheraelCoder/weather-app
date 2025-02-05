@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import { getProfile, deleteAccount } from '../services/authService';
+import { useDispatch } from 'react-redux'; // Importar useDispatch
+import { logout } from '../store'; // Importar la acción de logout
 import '../styles/ProfileModal.css';
 
 Modal.setAppElement('#root');
@@ -8,6 +10,7 @@ Modal.setAppElement('#root');
 export const ProfileModal = ({ isOpen, closeModal }) => {
   const [profile, setProfile] = useState({});
   const [error, setError] = useState('');
+  const dispatch = useDispatch(); // Usar useDispatch
 
   useEffect(() => {
     if (isOpen) {
@@ -28,7 +31,7 @@ export const ProfileModal = ({ isOpen, closeModal }) => {
     try {
       await deleteAccount();
       alert('Cuenta eliminada correctamente');
-      localStorage.removeItem('token');
+      dispatch(logout()); // Despachar la acción de logout para actualizar el estado de autenticación
       window.location.href = '/';
     } catch (error) {
       setError('Error al eliminar la cuenta');
