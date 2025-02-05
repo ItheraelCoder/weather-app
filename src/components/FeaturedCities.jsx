@@ -33,10 +33,10 @@ export const FeaturedCities = () => {
   }, [cities]);
 
   useEffect(() => {
-    // Cambiar el conjunto de ciudades mostradas cada 10 segundos
+    // Cambiar el conjunto de ciudades mostradas cada 20 segundos
     const interval = setInterval(() => {
       setCurrentSet((prevSet) => (prevSet + 1) % Math.ceil(cities.length / 4));
-    }, 20000); // 10 segundos
+    }, 20000); // 20 segundos
 
     return () => clearInterval(interval); // Limpiar el intervalo al desmontar el componente
   }, [cities.length]);

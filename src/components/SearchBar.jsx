@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { setSearchTerm, setLoading, setError } from '../store';
 import PropTypes from 'prop-types';
 import { fetchWeatherData } from '../services/weatherService';
-import { fetchAutocompleteSuggestions } from '../services';
+import { fetchAutocompleteSuggestions } from '../services/autoCompleteService';
 
 export const SearchBar = ({ onSearch }) => {
   const dispatch = useDispatch();

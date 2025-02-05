@@ -51,6 +51,7 @@ export const SearchPage = () => {
       <h1>Buscador del clima</h1>
       <ProfileButton />
       <SearchBar onSearch={handleSearch} />
+      {searchTerm && <h2>Resultados para: {searchTerm}</h2>}
       {error && <p className="error">{error}</p>}
       {isLoading ? (
         <p>Cargando...</p>
