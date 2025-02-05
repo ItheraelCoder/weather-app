@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { logout } from '../store';
+import { ProfileButton } from '../helpers';
 
 export const WelcomePage = () => {
   const { isAuthenticated } = useSelector((state) => state.auth);
@@ -32,6 +33,7 @@ export const WelcomePage = () => {
           <button onClick={handleLogout} className="logout-button">
             Cerrar sesión
           </button>
+          <ProfileButton />
         </>
       )}
     </div>

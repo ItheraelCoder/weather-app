@@ -4,6 +4,7 @@ import { setSearchTerm, setWeatherData, setLoading, setError, toggleTemperatureU
 import { logout } from '../store/auth/authSlice';
 import { SearchBar, SearchResults, FeaturedCities } from '../components/';
 import { useEffect } from 'react';
+import { ProfileButton } from '../helpers';
 
 export const SearchPage = () => {
   const dispatch = useDispatch();
@@ -36,6 +37,7 @@ export const SearchPage = () => {
   return (
     <div className="search-page">
       <h1>Buscador del clima</h1>
+      <ProfileButton /> {/* Añadir el botón de perfil */}
       <SearchBar onSearch={handleSearch} />
       {error && <p className="error">{error}</p>}
       <SearchResults

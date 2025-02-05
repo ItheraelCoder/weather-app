@@ -13,7 +13,7 @@ export const SignUpPage = () => {
   const handleSignUp = async (e) => {
     e.preventDefault();
     try {
-      await register(username, password); // Llama al servicio de registro
+      await register(username, email, password); // Llama al servicio de registro
       alert('¡Registro exitoso! Por favor, inicia sesión.');
       navigate('/login'); // Redirige al usuario a la página de inicio de sesión
     } catch (err) {
