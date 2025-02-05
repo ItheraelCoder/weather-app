@@ -15,13 +15,13 @@ export const SearchBar = ({ onSearch }) => {
     e.preventDefault();
     if (!inputValue.trim()) return;
 
-    dispatch(setSearchTerm(inputValue)); // Actualizar el término de búsqueda en el estado global
+    dispatch(setSearchTerm(inputValue));
     dispatch(setLoading(true));
     dispatch(setError(null));
 
     try {
       const data = await fetchWeatherData(inputValue);
-      onSearch(data); // Pasa los datos al componente padre
+      onSearch(data);
       setShowSuggestions(false);
     } catch (err) {
       dispatch(setError(err.message));
