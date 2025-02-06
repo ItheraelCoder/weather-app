@@ -23,14 +23,21 @@ export const SearchPage = () => {
   }, [navigate, isAuthenticated]);
 
   const handleSearch = async (query) => {
+    if (!query) {
+      dispatch(setError("Por favor, ingresa una ciudad o país.")); // Muestra un mensaje de error si está vacío
+      return;
+    }
+  
+    console.log("Query value en SearchPage:", query); // Verifica el valor de query
     dispatch(setLoading(true));
     dispatch(setError(null));
-
+  
     try {
+      console.log("Llamando a fetchWeatherData con:", query); // Verifica qué se está pasando a fetchWeatherData
       const data = await fetchWeatherData(query);
       dispatch(setWeatherData(data));
       dispatch(setSearchTerm(data.location.name));
-
+  
       if (isAuthenticated) {
         dispatch(addSearch({ term: data.location.name, timestamp: new Date().toISOString() }));
       }

@@ -26,7 +26,6 @@ export const SearchResults = ({ weatherData, isCelsius, onToggleUnit }) => {
 
   return (
     <div className="search-results">
-      <h2>Resultados para {weatherData.location.name}</h2>
       {getWeatherIcon(weatherData.current.condition.text)}
       <div className="weather-info">
         <p><strong>Ubicación:</strong> {weatherData.location.name}, {weatherData.location.country}</p>

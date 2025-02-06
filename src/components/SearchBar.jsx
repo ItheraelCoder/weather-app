@@ -13,16 +13,25 @@ export const SearchBar = ({ onSearch }) => {
 
   const handleSearch = async (e) => {
     e.preventDefault();
-    if (!inputValue.trim()) return;
-
+    if (!inputValue.trim()) {
+      dispatch(setError("Por favor, ingresa una ciudad o país."));
+      return;
+    }
+  
+    console.log("Input value en SearchBar:", inputValue); // Verifica el valor de inputValue
     dispatch(setSearchTerm(inputValue));
     dispatch(setLoading(true));
     dispatch(setError(null));
-
+  
     try {
-      const data = await fetchWeatherData(inputValue);
-      onSearch(data);
-      setShowSuggestions(false);
+      console.log("Llamando a fetchWeatherData con:", inputValue); // Verifica qué se está pasando a fetchWeatherData
+      const data = await fetchWeatherData(inputValue); // Asignamos el resultado a data
+      if (data && data.location) { // Validamos que los datos sean válidos
+        onSearch(inputValue); // Pasa solo el término de búsqueda, no los datos completos
+        setShowSuggestions(false);
+      } else {
+        dispatch(setError("No se encontraron datos válidos para la ubicación."));
+      }
     } catch (err) {
       dispatch(setError(err.message));
     } finally {
@@ -32,9 +41,10 @@ export const SearchBar = ({ onSearch }) => {
 
   const handleInputChange = async (e) => {
     const value = e.target.value;
-    setInputValue(value);
-
+    setInputValue(value); // Actualiza inputValue con el valor del campo de búsqueda
+  
     if (value.length > 2) {
+      
       try {
         const data = await fetchAutocompleteSuggestions(value);
         setSuggestions(data);
@@ -50,7 +60,8 @@ export const SearchBar = ({ onSearch }) => {
   };
 
   const handleSuggestionClick = (suggestion) => {
-    setInputValue(`${suggestion.name}, ${suggestion.country}`);
+    console.log("Sugerencia seleccionada:", suggestion); // Verifica la sugerencia seleccionada
+    setInputValue(`${suggestion.name}, ${suggestion.country}`); // Asegúrate de que sea una cadena
     setShowSuggestions(false);
   };
 
