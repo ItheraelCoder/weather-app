@@ -1,6 +1,9 @@
 <div align="center">
-  
-  <img src="https://www.freepik.com/icon/weather-app_7477786" alt="icon" height="60"> Weather App
+
+  # Weather Finder
+
+  <img src="https://cdn2.iconfinder.com/data/icons/ios-14-custom-application/62/application-12-256.png" height="90">
+  <br>
   
   [![HTML](https://img.shields.io/badge/HTML-%23E34F26.svg?logo=html5&logoColor=white)](#)
   [![CSS](https://img.shields.io/badge/CSS-1572B6?logo=css3&logoColor=fff)](#)
