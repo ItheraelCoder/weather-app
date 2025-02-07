@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { fetchWeatherData } from '../services/weatherService';
+import { motion } from 'framer-motion'; // Importa Framer Motion para animaciones
 
 export const FeaturedCities = () => {
   const [cities] = useState([
@@ -42,7 +43,7 @@ export const FeaturedCities = () => {
   }, [cities.length]);
 
   if (weatherData.length === 0) {
-    return <div>Cargando ciudades destacadas...</div>;
+    return <div className="text-white text-center p-4">Cargando ciudades destacadas...</div>;
   }
 
   // Obtener el conjunto actual de 4 ciudades
@@ -50,19 +51,32 @@ export const FeaturedCities = () => {
   const currentCities = weatherData.slice(startIndex, startIndex + 4);
 
   return (
-    <div className="featured-cities">
-      <h2>Ciudades destacadas</h2>
-      <div className="cities-grid">
+    <motion.div
+      initial={{ opacity: 0, x: -50 }} // Animación inicial
+      animate={{ opacity: 1, x: 0 }} // Animación al aparecer
+      transition={{ duration: 0.5 }} // Duración de la animación
+      className="w-1/4 fixed left-0 top-0 h-screen bg-gradient-to-b from-blue-500 to-blue-600 p-4 overflow-y-auto"
+    >
+      <h2 className="text-2xl font-bold text-white mb-6">Ciudades destacadas</h2>
+      <div className="space-y-4">
         {currentCities.map((cityData, index) => (
-          <div key={index} className="city-weather">
-            <h3>{cityData.location.name}, {cityData.location.country}</h3>
-            <p><strong>Temperatura:</strong> {cityData.current.temp_c}°C</p>
-            <p><strong>Condición:</strong> {cityData.current.condition.text}</p>
-            <p><strong>Humedad:</strong> {cityData.current.humidity}%</p>
-            <p><strong>Viento:</strong> {cityData.current.wind_kph} km/h</p>
-          </div>
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, y: 20 }} // Animación inicial de cada carta
+            animate={{ opacity: 1, y: 0 }} // Animación al aparecer
+            transition={{ duration: 0.5, delay: index * 0.1 }} // Retraso para animación escalonada
+            className="bg-white bg-opacity-90 p-4 rounded-lg shadow-lg"
+          >
+            <h3 className="text-xl font-semibold text-gray-800">
+              {cityData.location.name}, {cityData.location.country}
+            </h3>
+            <p className="text-gray-700"><strong>Temperatura:</strong> {cityData.current.temp_c}°C</p>
+            <p className="text-gray-700"><strong>Condición:</strong> {cityData.current.condition.text}</p>
+            <p className="text-gray-700"><strong>Humedad:</strong> {cityData.current.humidity}%</p>
+            <p className="text-gray-700"><strong>Viento:</strong> {cityData.current.wind_kph} km/h</p>
+          </motion.div>
         ))}
       </div>
-    </div>
+    </motion.div>
   );
 };

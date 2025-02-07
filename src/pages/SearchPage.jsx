@@ -8,6 +8,7 @@ import { SearchBar, SearchResults, FeaturedCities } from '../components/';
 import { useEffect } from 'react';
 import { ProfileButton } from '../helpers';
 import { fetchWeatherData } from '../services/weatherService';
+import '../styles/WeatherBGImage.css'
 
 export const SearchPage = () => {
   const dispatch = useDispatch();
@@ -54,7 +55,7 @@ export const SearchPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-400 to-blue-600 p-4">
+    <div className="min-h-screen bg-gradient-to-b from-blue-400 to-blue-600 p-4 weather-bgimage">
       {/* Barra de navegación flotante */}
       <div className="bg-white bg-opacity-90 p-4 rounded-lg shadow-lg fixed top-4 left-1/2 transform -translate-x-1/2 w-full max-w-4xl mx-auto flex items-center justify-between space-x-4 z-50">
         <button
