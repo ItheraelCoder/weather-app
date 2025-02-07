@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { fetchWeatherData } from '../services/weatherService';
 import { motion } from 'framer-motion'; // Importa Framer Motion para animaciones
-import { getWeatherIcon } from '../helpers/weatherIcons'; // Importa la función desde el nuevo servicio
+import { getWeatherIcon } from '../helpers'; // Importa la función desde el nuevo servicio
 
 export const FeaturedCities = () => {
   const [cities] = useState([
