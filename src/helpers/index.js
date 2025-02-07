@@ -1,2 +1,2 @@
 export * from './ProfileButton'
-export * from './weatherIcons'
+export * from './WeatherIcons'
