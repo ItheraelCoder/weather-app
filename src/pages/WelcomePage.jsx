@@ -20,7 +20,7 @@ export const WelcomePage = () => {
       <div className="bg-white bg-opacity-90 p-8 rounded-lg shadow-lg text-center max-w-md w-full">
         <h1 className="text-4xl font-bold text-gray-800 mb-6 flex items-center justify-center">
           <FaSun className="mr-2" />
-          ¡Bienvenido a la aplicación del clima!
+          ¡Bienvenido a Weather Finder!
         </h1>
         {!isAuthenticated && (
           <>
