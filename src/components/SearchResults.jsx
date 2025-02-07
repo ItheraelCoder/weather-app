@@ -1,19 +1,20 @@
 import { FaSun, FaCloud, FaCloudRain, FaSnowflake } from 'react-icons/fa';
 import { Forecast } from './Forecast';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
+import { motion } from 'framer-motion'; // Importa Framer Motion para animaciones
 
 const getWeatherIcon = (condition) => {
   switch (condition.toLowerCase()) {
     case 'sunny':
-      return <FaSun className="weather-icon" />;
+      return <FaSun className="text-yellow-500 text-6xl" />;
     case 'cloudy':
-      return <FaCloud className="weather-icon" />;
+      return <FaCloud className="text-gray-500 text-6xl" />;
     case 'rainy':
-      return <FaCloudRain className="weather-icon" />;
+      return <FaCloudRain className="text-blue-500 text-6xl" />;
     case 'snowy':
-      return <FaSnowflake className="weather-icon" />;
+      return <FaSnowflake className="text-blue-300 text-6xl" />;
     default:
-      return <FaSun className="weather-icon" />;
+      return <FaSun className="text-yellow-500 text-6xl" />;
   }
 };
 
@@ -25,22 +26,56 @@ export const SearchResults = ({ weatherData, isCelsius, onToggleUnit }) => {
     : `${weatherData.current.temp_f}°F`;
 
   return (
-    <div className="search-results">
-      {getWeatherIcon(weatherData.current.condition.text)}
-      <div className="weather-info">
-        <p><strong>Ubicación:</strong> {weatherData.location.name}, {weatherData.location.country}</p>
-        <p><strong>Temperatura:</strong> {temperature}</p>
-        <p><strong>Condición:</strong> {weatherData.current.condition.text}</p>
-        <p><strong>Humedad:</strong> {weatherData.current.humidity}%</p>
-        <p><strong>Viento:</strong> {weatherData.current.wind_kph} km/h</p>
+    <motion.div
+      initial={{ opacity: 0, y: 20 }} // Animación inicial
+      animate={{ opacity: 1, y: 0 }} // Animación al aparecer
+      transition={{ duration: 0.5 }} // Duración de la animación
+      className="bg-white bg-opacity-90 p-8 rounded-lg shadow-lg w-full max-w-4xl mx-auto mt-6"
+    >
+      {/* Icono del clima */}
+      <div className="flex justify-center mb-6">
+        {getWeatherIcon(weatherData.current.condition.text)}
       </div>
-      <button onClick={onToggleUnit}>
-        Cambiar a {isCelsius ? 'Fahrenheit' : 'Celsius'}
-      </button>
+
+      {/* Información del clima */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-gray-800">
+        <div className="bg-blue-50 p-4 rounded-lg">
+          <p className="font-semibold">Ubicación:</p>
+          <p>{weatherData.location.name}, {weatherData.location.country}</p>
+        </div>
+        <div className="bg-blue-50 p-4 rounded-lg">
+          <p className="font-semibold">Temperatura:</p>
+          <p>{temperature}</p>
+        </div>
+        <div className="bg-blue-50 p-4 rounded-lg">
+          <p className="font-semibold">Condición:</p>
+          <p>{weatherData.current.condition.text}</p>
+        </div>
+        <div className="bg-blue-50 p-4 rounded-lg">
+          <p className="font-semibold">Humedad:</p>
+          <p>{weatherData.current.humidity}%</p>
+        </div>
+        <div className="bg-blue-50 p-4 rounded-lg">
+          <p className="font-semibold">Viento:</p>
+          <p>{weatherData.current.wind_kph} km/h</p>
+        </div>
+      </div>
+
+      {/* Botón para cambiar la unidad de temperatura */}
+      <div className="flex justify-center mt-6">
+        <button
+          onClick={onToggleUnit}
+          className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-300"
+        >
+          Cambiar a {isCelsius ? 'Fahrenheit' : 'Celsius'}
+        </button>
+      </div>
 
       {/* Pronóstico extendido */}
-      <Forecast forecast={weatherData.forecast} />
-    </div>
+      <div className="mt-8">
+        <Forecast forecast={weatherData.forecast} />
+      </div>
+    </motion.div>
   );
 };
 

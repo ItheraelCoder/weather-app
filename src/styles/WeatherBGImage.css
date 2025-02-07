@@ -1,0 +1,5 @@
+.weather-bgimage {
+  background-image: url('../assets/weather-bg.jpg');
+  background-size: cover;
+  background-position: center;
+}

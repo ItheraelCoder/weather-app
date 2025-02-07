@@ -27,17 +27,17 @@ export const SearchPage = () => {
       dispatch(setError("Por favor, ingresa una ciudad o país.")); // Muestra un mensaje de error si está vacío
       return;
     }
-  
+
     console.log("Query value en SearchPage:", query); // Verifica el valor de query
     dispatch(setLoading(true));
     dispatch(setError(null));
-  
+
     try {
       console.log("Llamando a fetchWeatherData con:", query); // Verifica qué se está pasando a fetchWeatherData
       const data = await fetchWeatherData(query);
       dispatch(setWeatherData(data));
       dispatch(setSearchTerm(data.location.name));
-  
+
       if (isAuthenticated) {
         dispatch(addSearch({ term: data.location.name, timestamp: new Date().toISOString() }));
       }
@@ -54,32 +54,44 @@ export const SearchPage = () => {
   };
 
   return (
-    <div className="search-page">
-      <h1>Buscador del clima</h1>
-      <ProfileButton />
-      <SearchBar onSearch={handleSearch} />
-      {searchTerm && <h2>Resultados para: {searchTerm}</h2>}
-      {error && <p className="error">{error}</p>}
-      {isLoading ? (
-        <p>Cargando...</p>
-      ) : (
-        weatherData && (
-          <SearchResults
-            weatherData={weatherData}
-            isCelsius={isCelsius}
-            onToggleUnit={() => dispatch(toggleTemperatureUnit())}
-          />
-        )
-      )}
-      <button onClick={() => navigate('/')} className="home-button">
-        Volver a la página principal
-      </button>
-      {isAuthenticated && (
-        <button onClick={handleLogout} className="logout-button">
-          Cerrar sesión
+    <div className="min-h-screen bg-gradient-to-b from-blue-400 to-blue-600 p-4">
+      {/* Barra de navegación flotante */}
+      <div className="bg-white bg-opacity-90 p-4 rounded-lg shadow-lg fixed top-4 left-1/2 transform -translate-x-1/2 w-full max-w-4xl mx-auto flex items-center justify-between space-x-4 z-50">
+        <button
+          onClick={() => navigate('/')}
+          className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-300"
+        >
+          Volver a la página principal
         </button>
-      )}
-      <FeaturedCities />
+        <ProfileButton />
+        <SearchBar onSearch={handleSearch} />
+        {isAuthenticated && (
+          <button
+            onClick={handleLogout}
+            className="bg-red-600 text-white py-2 px-4 rounded-md hover:bg-red-700 transition duration-300"
+          >
+            Cerrar sesión
+          </button>
+        )}
+      </div>
+
+      {/* Contenido principal */}
+      <div className="pt-24"> {/* Espacio para la barra de navegación */}
+        {searchTerm && <h2 className="text-2xl font-bold text-white text-center mb-4">Resultados para: {searchTerm}</h2>}
+        {error && <p className="text-red-600 text-center">{error}</p>}
+        {isLoading ? (
+          <p className="text-white text-center">Cargando...</p>
+        ) : (
+          weatherData && (
+            <SearchResults
+              weatherData={weatherData}
+              isCelsius={isCelsius}
+              onToggleUnit={() => dispatch(toggleTemperatureUnit())}
+            />
+          )
+        )}
+        <FeaturedCities />
+      </div>
     </div>
   );
 };
