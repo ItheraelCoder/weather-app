@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { fetchWeatherData } from '../services/weatherService';
 import { motion } from 'framer-motion'; // Importa Framer Motion para animaciones
+import { getWeatherIcon } from '../helpers/weatherIcons'; // Importa la función desde el nuevo servicio
 
 export const FeaturedCities = () => {
   const [cities] = useState([
@@ -65,15 +66,20 @@ export const FeaturedCities = () => {
             initial={{ opacity: 0, y: 20 }} // Animación inicial de cada carta
             animate={{ opacity: 1, y: 0 }} // Animación al aparecer
             transition={{ duration: 0.5, delay: index * 0.1 }} // Retraso para animación escalonada
-            className="bg-white bg-opacity-90 p-4 rounded-lg shadow-lg"
+            className="bg-white bg-opacity-90 p-4 rounded-lg shadow-lg flex items-center"
           >
-            <h3 className="text-xl font-semibold text-gray-800">
-              {cityData.location.name}, {cityData.location.country}
-            </h3>
-            <p className="text-gray-700"><strong>Temperatura:</strong> {cityData.current.temp_c}°C</p>
-            <p className="text-gray-700"><strong>Condición:</strong> {cityData.current.condition.text}</p>
-            <p className="text-gray-700"><strong>Humedad:</strong> {cityData.current.humidity}%</p>
-            <p className="text-gray-700"><strong>Viento:</strong> {cityData.current.wind_kph} km/h</p>
+            <div className="mr-4">
+              {getWeatherIcon(cityData.current.condition.text)}
+            </div>
+            <div>
+              <h3 className="text-xl font-semibold text-gray-800">
+                {cityData.location.name}, {cityData.location.country}
+              </h3>
+              <p className="text-gray-700"><strong>Temperatura:</strong> {cityData.current.temp_c}°C</p>
+              <p className="text-gray-700"><strong>Condición:</strong> {cityData.current.condition.text}</p>
+              <p className="text-gray-700"><strong>Humedad:</strong> {cityData.current.humidity}%</p>
+              <p className="text-gray-700"><strong>Viento:</strong> {cityData.current.wind_kph} km/h</p>
+            </div>
           </motion.div>
         ))}
       </div>

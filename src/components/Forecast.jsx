@@ -1,4 +1,3 @@
-import '../styles/Forecast.css';
 import PropTypes from 'prop-types';
 
 export const Forecast = ({ forecast }) => {
