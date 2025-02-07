@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router';
 import {
   setSearchTerm, setWeatherData, setLoading, setError, toggleTemperatureUnit, addSearch,
 } from '../store';
-import { logout } from '../store/auth/authSlice';
+import { logout } from '../store';
 import { SearchBar, SearchResults, FeaturedCities } from '../components/';
 import { useEffect } from 'react';
 import { ProfileButton } from '../helpers';
@@ -50,7 +50,7 @@ export const SearchPage = () => {
   };
 
   const handleLogout = () => {
-    dispatch.logout();
+    dispatch(logout());
     navigate('/');
   };
 
