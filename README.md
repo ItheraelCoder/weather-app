@@ -47,4 +47,8 @@ npm install eslint
 Y inicar el servidor de desarrollo:
 ```properties
 npm run dev
-```  
+```
+#### Back-End
+https://github.com/J4BC97/weather-app-backend
+
+
