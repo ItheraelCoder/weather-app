@@ -7,11 +7,11 @@ export const Forecast = ({ forecast }) => {
   }
 
   return (
-    <div className="forecast">
+    <div className="forecast p-4">
       <h3>Pronóstico extendido</h3>
-      <div className="forecast-days">
+      <div className="forecast-days grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {forecast.forecastday.map((day, index) => (
-          <div key={index} className="forecast-day">
+          <div key={index} className="forecast-day bg-white bg-opacity-90 p-4 rounded-lg shadow-lg">
             <p><strong>Fecha:</strong> {day.date}</p>
             <p><strong>Máxima:</strong> {day.day.maxtemp_c}°C</p>
             <p><strong>Mínima:</strong> {day.day.mintemp_c}°C</p>
@@ -39,5 +39,3 @@ Forecast.propTypes = {
     ).isRequired,
   }).isRequired,
 };
-
-

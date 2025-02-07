@@ -52,10 +52,10 @@ export const FeaturedCities = () => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: -50 }} // Animación inicial
-      animate={{ opacity: 1, x: 0 }} // Animación al aparecer
+      initial={{ opacity: 0, y: 50 }} // Animación inicial
+      animate={{ opacity: 1, y: 0 }} // Animación al aparecer
       transition={{ duration: 0.5 }} // Duración de la animación
-      className="w-1/4 fixed left-0 top-0 h-screen bg-gradient-to-b from-blue-500 to-blue-600 p-4 overflow-y-auto"
+      className="w-full bg-gradient-to-b from-blue-500 to-blue-600 p-4 overflow-y-auto mb-8" // Ajusté el ancho a w-full y agregué mb-8 para espaciado
     >
       <h2 className="text-2xl font-bold text-white mb-6">Ciudades destacadas</h2>
       <div className="space-y-4">
