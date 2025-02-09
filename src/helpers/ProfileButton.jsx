@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { ProfileModal } from '../components';
+import { FaUser } from 'react-icons/fa';
 
 export const ProfileButton = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -11,9 +12,10 @@ export const ProfileButton = () => {
     <div>
       <button
         onClick={openModal}
-        className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-300"
+        className="p-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-all duration-300"
+        aria-label="Perfil de usuario"
       >
-        Ver Perfil
+        <FaUser className="text-xl" />
       </button>
       <ProfileModal isOpen={isOpen} closeModal={closeModal} />
     </div>

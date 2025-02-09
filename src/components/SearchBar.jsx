@@ -4,6 +4,7 @@ import { setSearchTerm, setLoading, setError } from '../store';
 import PropTypes from 'prop-types';
 import { fetchWeatherData } from '../services/weatherService';
 import { fetchAutocompleteSuggestions } from '../services/autoCompleteService';
+import { FaSearch } from 'react-icons/fa'; // Importar ícono de búsqueda
 
 export const SearchBar = ({ onSearch }) => {
   const dispatch = useDispatch();
@@ -18,16 +19,14 @@ export const SearchBar = ({ onSearch }) => {
       return;
     }
 
-    console.log("Input value en SearchBar:", inputValue); // Verifica el valor de inputValue
     dispatch(setSearchTerm(inputValue));
     dispatch(setLoading(true));
     dispatch(setError(null));
 
     try {
-      console.log("Llamando a fetchWeatherData con:", inputValue); // Verifica qué se está pasando a fetchWeatherData
-      const data = await fetchWeatherData(inputValue); // Asignamos el resultado a data
+      const data = await fetchWeatherData(inputValue);
       if (data && data.location) {
-        onSearch(inputValue); // Pasa solo el término de búsqueda, no los datos completos
+        onSearch(inputValue);
         setShowSuggestions(false);
       } else {
         dispatch(setError("No se encontraron datos válidos para la ubicación."));
@@ -41,7 +40,7 @@ export const SearchBar = ({ onSearch }) => {
 
   const handleInputChange = async (e) => {
     const value = e.target.value;
-    setInputValue(value); // Actualiza inputValue con el valor del campo de búsqueda
+    setInputValue(value);
 
     if (value.length > 2) {
       try {
@@ -59,8 +58,7 @@ export const SearchBar = ({ onSearch }) => {
   };
 
   const handleSuggestionClick = (suggestion) => {
-    console.log("Sugerencia seleccionada:", suggestion); // Verifica la sugerencia seleccionada
-    setInputValue(`${suggestion.name}, ${suggestion.country}`); // Asegúrate de que sea una cadena
+    setInputValue(`${suggestion.name}, ${suggestion.country}`);
     setShowSuggestions(false);
   };
 
@@ -76,9 +74,10 @@ export const SearchBar = ({ onSearch }) => {
         />
         <button
           type="submit"
-          className="bg-blue-600 text-white px-4 py-2 hover:bg-blue-700 transition duration-300"
+          className="p-3 bg-blue-600 hover:bg-blue-700 text-white transition-all duration-300 flex items-center justify-center"
+          aria-label="Buscar"
         >
-          Buscar
+          <FaSearch className="text-xl" />
         </button>
       </div>
 
