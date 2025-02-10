@@ -13,7 +13,7 @@
 
 Weather Finder es una aplicación web que permite consultar el clima en tiempo real de manera rápida y sencilla. Los usuarios pueden ingresar una ubicación y obtener información detallada sobre la temperatura, sensación térmica, humedad, velocidad del viento y otras condiciones meteorológicas.
 
-La aplicación fue desarrollada con React.js para garantizar un rendimiento eficiente y una navegación fluida. Para el diseño se utilizó Bootstrap, lo que permite una interfaz moderna y adaptable a cualquier dispositivo. Además, con Redux Thunk se optimiza la gestión del estado y las solicitudes a la API, asegurando que los datos se carguen de manera rápida y sin interrupciones.
+La aplicación fue desarrollada con React.js para garantizar un rendimiento eficiente y una navegación fluida. Para el diseño se utilizó Tailwind, lo que permite una interfaz moderna y adaptable a cualquier dispositivo. Además, con Redux Thunk se optimiza la gestión del estado y las solicitudes a la API, asegurando que los datos se carguen de manera rápida y sin interrupciones.
 
 Gracias a la integración con Weather-API, Weather Finder ofrece información actualizada con precisión, brindando una herramienta confiable para quienes necesitan conocer el estado del clima en cualquier momento.
 
