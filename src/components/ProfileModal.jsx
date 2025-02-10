@@ -50,10 +50,10 @@ export const ProfileModal = ({ isOpen, closeModal }) => {
           overlayClassName="fixed inset-0 flex items-center justify-center p-4"
         >
           <motion.div
-            initial={{ opacity: 0, y: -50 }} // Animación inicial
-            animate={{ opacity: 1, y: 0 }} // Animación al abrir
-            exit={{ opacity: 0, y: -50 }} // Animación al cerrar
-            transition={{ duration: 0.3 }} // Duración de la animación
+            initial={{ opacity: 0, y: -50 }} 
+            animate={{ opacity: 1, y: 0 }} 
+            exit={{ opacity: 0, y: -50 }} 
+            transition={{ duration: 0.3 }}
             className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md"
           >
             <h2 className="text-2xl font-bold text-gray-800 mb-6">

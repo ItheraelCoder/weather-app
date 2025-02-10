@@ -4,7 +4,7 @@ import { setSearchTerm, setLoading, setError } from '../store';
 import PropTypes from 'prop-types';
 import { fetchWeatherData } from '../services/weatherService';
 import { fetchAutocompleteSuggestions } from '../services/autoCompleteService';
-import { FaSearch } from 'react-icons/fa'; // Importar ícono de búsqueda
+import { FaSearch } from 'react-icons/fa';
 
 export const SearchBar = ({ onSearch }) => {
   const dispatch = useDispatch();
@@ -81,7 +81,6 @@ export const SearchBar = ({ onSearch }) => {
         </button>
       </div>
 
-      {/* Menú desplegable de sugerencias */}
       {showSuggestions && suggestions.length > 0 && (
         <div className="absolute z-10 w-full bg-white border border-gray-300 rounded-md shadow-lg mt-1 max-h-48 overflow-y-auto">
           {suggestions.map((suggestion, index) => (

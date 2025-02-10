@@ -11,8 +11,8 @@ export const WelcomePage = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    dispatch(logout()); // Cierra la sesión
-    navigate('/'); // Redirige a la página de inicio
+    dispatch(logout()); 
+    navigate('/');
   };
 
   return (
@@ -38,7 +38,7 @@ export const WelcomePage = () => {
         {isAuthenticated && (
           <>
             <p className="text-gray-700 mb-6">¡Hola! Estás autenticado.</p>
-            <div className="flex flex-wrap gap-4 justify-center"> {/* Botones en fila con espacio entre ellos */}
+            <div className="flex flex-wrap gap-4 justify-center">
               <button
                 onClick={() => navigate('/search')}
                 className="bg-green-600 text-white py-2 px-6 rounded-md hover:bg-green-700 transition duration-300"

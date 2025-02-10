@@ -1,9 +1,8 @@
 import { FaSun, FaCloud, FaCloudRain, FaSnowflake, FaCloudSun, FaSmog, FaBolt, FaCloudShowersHeavy } from 'react-icons/fa'; // Importa íconos de clima
 
-// Función para obtener el ícono del clima basado en la condición
 export const getWeatherIcon = (condition) => {
-  const lowerCondition = condition.toLowerCase().trim(); // Asegúrate de que no haya espacios adicionales
-  console.log("Condition received:", lowerCondition); // Depuración
+  const lowerCondition = condition.toLowerCase().trim();
+  console.log("Condition received:", lowerCondition);
 
   if (lowerCondition.includes('soleado') || lowerCondition.includes('despejado')) {
     return <FaSun className="text-yellow-500 text-4xl" />;

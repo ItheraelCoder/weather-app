@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { fetchWeatherData } from '../services/weatherService';
-import { motion, AnimatePresence } from 'framer-motion'; // Importar AnimatePresence para animaciones de entrada/salida
-import { FaCity, FaTimes } from 'react-icons/fa'; // Importar íconos para el botón y el cierre
-import { getWeatherIcon } from '../helpers'; // Mantener el helper de íconos
+import { motion, AnimatePresence } from 'framer-motion'; 
+import { FaCity, FaTimes } from 'react-icons/fa'; 
+import { getWeatherIcon } from '../helpers'; 
 
 export const FeaturedCities = () => {
   const [cities] = useState([
@@ -19,11 +19,10 @@ export const FeaturedCities = () => {
   ]);
   const [weatherData, setWeatherData] = useState([]);
   const [currentSet, setCurrentSet] = useState(0);
-  const [isModalOpen, setIsModalOpen] = useState(false); // Estado para controlar la apertura/cierre del modal
-  const [showTooltip, setShowTooltip] = useState(true); // Estado para controlar el texto flotante
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showTooltip, setShowTooltip] = useState(true);
 
   useEffect(() => {
-    // Función para obtener el clima de todas las ciudades
     const fetchAllCitiesWeather = async () => {
       const data = await Promise.all(
         cities.map(async (city) => {
@@ -38,39 +37,36 @@ export const FeaturedCities = () => {
   }, [cities]);
 
   useEffect(() => {
-    // Cambiar el conjunto de ciudades mostradas cada 20 segundos
     const interval = setInterval(() => {
       setCurrentSet((prevSet) => (prevSet + 1) % Math.ceil(cities.length / 4));
-    }, 20000); // 20 segundos
+    }, 20000);
 
-    return () => clearInterval(interval); // Limpiar el intervalo al desmontar el componente
+    return () => clearInterval(interval);
   }, [cities.length]);
 
-  // Ocultar el texto flotante después de 5 segundos o al abrir el modal
+  
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowTooltip(false);
-    }, 5000); // 5 segundos
+    }, 5000);
 
     return () => clearTimeout(timer);
   }, []);
 
   const handleModalToggle = () => {
     setIsModalOpen(!isModalOpen);
-    setShowTooltip(false); // Ocultar el texto flotante al abrir el modal
+    setShowTooltip(false); 
   };
 
   if (weatherData.length === 0) {
     return <div className="text-white text-center p-4">Cargando ciudades destacadas...</div>;
   }
 
-  // Obtener el conjunto actual de 4 ciudades
   const startIndex = currentSet * 4;
   const currentCities = weatherData.slice(startIndex, startIndex + 4);
 
   return (
     <>
-      {/* Botón para abrir el modal (solo visible cuando el modal está cerrado) */}
       {!isModalOpen && (
         <div className="fixed left-4 top-20 z-50">
           <button
@@ -79,7 +75,6 @@ export const FeaturedCities = () => {
             aria-label="Abrir ciudades destacadas"
           >
             <FaCity className="text-xl" />
-            {/* Texto flotante */}
             {showTooltip && (
               <div className="absolute left-12 bg-blue-600 text-white text-sm px-2 py-1 rounded-md whitespace-nowrap">
                 Ver ciudades destacadas
@@ -89,17 +84,15 @@ export const FeaturedCities = () => {
         </div>
       )}
 
-      {/* Modal de ciudades destacadas */}
       <AnimatePresence>
         {isModalOpen && (
           <motion.div
-            initial={{ x: '-100%', opacity: 0 }} // Animación inicial: fuera de la pantalla
-            animate={{ x: 0, opacity: 1 }} // Animación al aparecer: desliza hacia la derecha
-            exit={{ x: '-100%', opacity: 0 }} // Animación al cerrar: desliza hacia la izquierda
-            transition={{ duration: 0.3 }} // Duración de la animación
+            initial={{ x: '-100%', opacity: 0 }} 
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: '-100%', opacity: 0 }}
+            transition={{ duration: 0.3 }}
             className="fixed left-0 top-0 h-full w-96 bg-gradient-to-b from-blue-500 to-blue-600 p-4 shadow-lg z-40"
           >
-            {/* Botón para cerrar el modal */}
             <button
               onClick={handleModalToggle}
               className="absolute right-4 top-4 bg-red-600 p-2 rounded-full text-white hover:bg-red-700 transition duration-300"
@@ -113,13 +106,13 @@ export const FeaturedCities = () => {
               {currentCities.map((cityData, index) => (
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, y: 20 }} // Animación inicial de cada carta
-                  animate={{ opacity: 1, y: 0 }} // Animación al aparecer
-                  transition={{ duration: 0.5, delay: index * 0.1 }} // Retraso para animación escalonada
+                  initial={{ opacity: 0, y: 20 }} 
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }} 
                   className="bg-white bg-opacity-90 p-4 rounded-lg shadow-lg flex items-center"
                 >
                   <div className="mr-4">
-                    {getWeatherIcon(cityData.current.condition.text)} {/* Usar el helper de íconos */}
+                    {getWeatherIcon(cityData.current.condition.text)} 
                   </div>
                   <div>
                     <h3 className="text-xl font-semibold text-gray-800">

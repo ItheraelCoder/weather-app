@@ -5,7 +5,7 @@ const initialState = {
     weatherData: null,
     isLoading: false,
     error: null,
-    isCelsius: true, // Nueva propiedad para manejar la unidad
+    isCelsius: true
   };
   
 export const searchSlice = createSlice({
@@ -25,7 +25,7 @@ export const searchSlice = createSlice({
         state.error = action.payload;
       },
       toggleTemperatureUnit: (state) => {
-        state.isCelsius = !state.isCelsius; // Cambia entre Celsius y Fahrenheit
+        state.isCelsius = !state.isCelsius;
       },
     },
   });

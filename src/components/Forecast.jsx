@@ -7,7 +7,6 @@ export const Forecast = ({ forecast }) => {
     return null;
   }
 
-  // Animación para las tarjetas
   const cardVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 },
@@ -26,15 +25,12 @@ export const Forecast = ({ forecast }) => {
             animate="visible"
             transition={{ delay: index * 0.2, duration: 0.5 }}
           >
-            {/* Fecha */}
             <p className="text-lg font-semibold text-gray-800">{day.date}</p>
 
-            {/* Ícono del clima */}
             <div className="text-6xl">
               {getWeatherIcon(day.day.condition.text)}
             </div>
 
-            {/* Temperaturas */}
             <div className="text-center">
               <p className="text-gray-700">
                 <strong>Máxima:</strong> {day.day.maxtemp_c}°C
@@ -44,7 +40,6 @@ export const Forecast = ({ forecast }) => {
               </p>
             </div>
 
-            {/* Condición del clima */}
             <p className="text-gray-600 text-center">
               <strong>Condición:</strong> {day.day.condition.text}
             </p>

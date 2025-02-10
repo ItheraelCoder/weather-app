@@ -17,18 +17,17 @@ export const LoginPage = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const result = await dispatch(loginUser({ username, password })).unwrap(); // Despacha la acción asíncrona y obtiene el resultado
-      console.log('Login successful:', result); // Añadir para depuración
-      navigate('/'); // Redirige al usuario después del inicio de sesión
+      const result = await dispatch(loginUser({ username, password })).unwrap();
+      console.log('Login successful:', result);
+      navigate('/');
     } catch (error) {
-      console.error('Login failed:', error); // Añadir para depuración
-      setError(error); // Muestra un mensaje de error si falla el inicio de sesión
+      console.error('Login failed:', error);
+      setError(error);
     }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center from-blue-500 to-purple-600 relative overflow-hidden weather-bgimage">
-      {/* Contenedor del formulario */}
       <motion.div
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}

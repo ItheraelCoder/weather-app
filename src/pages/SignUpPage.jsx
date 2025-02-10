@@ -14,20 +14,20 @@ export const SignUpPage = () => {
   const handleSignUp = async (e) => {
     e.preventDefault();
     try {
-      await register(username, email, password); // Llama al servicio de registro
+      await register(username, email, password); 
       alert('¡Registro exitoso! Por favor, inicia sesión.');
-      navigate('/login'); // Redirige al usuario a la página de inicio de sesión
+      navigate('/login');
     } catch (err) {
-      setError(err.message); // Muestra un mensaje de error si falla el registro
+      setError(err.message);
     }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center from-blue-500 to-purple-600 weather-bgimage">
       <motion.div
-        initial={{ opacity: 0, y: -50 }} // Animación inicial del formulario
-        animate={{ opacity: 1, y: 0 }} // Animación al cargar el formulario
-        transition={{ duration: 0.5 }} // Duración de la animación
+        initial={{ opacity: 0, y: -50 }} 
+        animate={{ opacity: 1, y: 0 }} 
+        transition={{ duration: 0.5 }} 
         className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md mx-4"
       >
         <h1 className="text-3xl font-bold text-center mb-6 text-gray-800">

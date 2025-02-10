@@ -9,7 +9,7 @@ import { useEffect } from 'react';
 import { ProfileButton } from '../helpers';
 import { fetchWeatherData } from '../services/weatherService';
 import '../styles/WeatherBGImage.css';
-import { FaPowerOff } from 'react-icons/fa'; // Importar ícono de cerrar sesión
+import { FaPowerOff } from 'react-icons/fa';
 
 export const SearchPage = () => {
   const dispatch = useDispatch();
@@ -55,9 +55,7 @@ export const SearchPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-400 to-blue-600 p-4 weather-bgimage flex flex-col justify-between">
-      {/* Barra de navegación */}
-      <div className="bg-white bg-opacity-90 p-4 rounded-lg shadow-lg w-full max-w-4xl mx-auto mb-6 flex items-center justify-between space-x-4">
-        {/* Contenedor para los botones de la izquierda */}
+      <div className="bg-white bg-opacity-90 p-4 rounded-lg shadow-lg w-full max-w-4xl mx-auto mb-6 flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0 md:space-x-4">
         <div className="flex items-center space-x-2">
           <button
             onClick={() => navigate('/')}
@@ -71,9 +69,9 @@ export const SearchPage = () => {
 
           <ProfileButton />
         </div>
-
-        <SearchBar onSearch={handleSearch} />
-
+        <div className="w-full md:w-auto">
+          <SearchBar onSearch={handleSearch} />
+        </div>
         {isAuthenticated && (
           <button
             onClick={handleLogout}
@@ -84,8 +82,6 @@ export const SearchPage = () => {
           </button>
         )}
       </div>
-
-      {/* Contenido principal */}
       <div className="w-full max-w-4xl mx-auto flex-grow">
         {searchTerm && <h2 className="text-2xl font-bold text-white text-center mb-4">Resultados para: {searchTerm}</h2>}
         {error && <p className="text-red-600 text-center">{error}</p>}
@@ -101,8 +97,6 @@ export const SearchPage = () => {
           )
         )}
       </div>
-
-      {/* Contenedor para FeaturedCities */}
       <div className="w-full max-w-4xl mx-auto mt-8">
         <FeaturedCities />
       </div>
